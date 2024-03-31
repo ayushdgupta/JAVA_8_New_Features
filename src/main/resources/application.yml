@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: StreamApiDemo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring_batch
+    username: postgres
+    password: ${db_pass}
+  jpa:
+    hibernate:
+      ddl-auto: none
+#      ddl-auto: update
+
+server:
+  port: 9090
