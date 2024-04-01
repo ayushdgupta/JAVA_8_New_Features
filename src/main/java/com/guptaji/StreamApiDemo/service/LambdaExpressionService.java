@@ -29,5 +29,19 @@ public class LambdaExpressionService {
     // 3. Using lambda (Latest)
     Anime favAnimeTwo = () -> LOG.info("Fav anime is {}", DBZ);
     favAnimeTwo.favAnime(); // DBZ
+
+    // Another good example of lambda is Runnable Interface i.e. Runnable
+    // is also a functional interface so here also we can use lambda -
+    Thread threadUsingLambda =
+        new Thread(
+            () ->
+                LOG.info(
+                    "Thread using Lambda and the thread name is {}",
+                    Thread.currentThread().getName()));
+    threadUsingLambda.start();
+    // so here what we actually do is for creating a thread using Runnable interface which is a FI,
+    // we create a class implements Runnable interface and then we override 'run()' method
+    // and then we pass that class reference in Thread class to create a thread. so here
+    // we shorten that process using lambda like we did above for Anime interface.
   }
 }
