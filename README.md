@@ -21,7 +21,7 @@
 
 2. **Method Reference (::) (MR)**
    1. The **double colon (::) operator** is known as **Method Reference Operator** in JAVA.
-   2. These are used to call a method by referring to it with the help of it's class name and it's syntax is -
+   2. These are used to call a method by referring to it with the help of it's class name, and it's syntax is -
    ```
    <Class name (for static Methods) / Class Object (for Non-static Methods)>::<method name>
    ```
