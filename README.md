@@ -71,6 +71,10 @@
    String s = String::toUpperCase;     // this is wrong bcz now on which element 'toUpperCase' func need to apply
                                        // we don't have that information here.
    ```
-   8. For more nfo refer below links -
+   8. we can also use method reference operator with **'this'** keyword. Suppose if a method is present in the same class and it's a non-static method and the object of the current class is already created then with the help of this we can call current class method no need to create a new object e.g. -
+   ```
+   this::METHOD_NAME
+   ```
+   9. For more nfo refer below links -
    * GFG - https://www.geeksforgeeks.org/double-colon-operator-in-java/
    * JAVATPOINT - https://www.javatpoint.com/java-8-method-reference
