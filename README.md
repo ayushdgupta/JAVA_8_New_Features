@@ -1,7 +1,7 @@
-### JAVA 8 NEW Features (URL to access all API's http://localhost:9090/swagger-ui/index.html#/)
+## JAVA 8 NEW Features (URL to access all API's http://localhost:9090/swagger-ui/index.html#/)
 
 1. **Lambda Expression (LE)**
-   1. LE is used to provide the implementation of **Functional Interface** e.g. Runnable.
+   1. LE is used to provide the implementation of **Functional Interface** e.g. Runnable (only run() Method), Comparable (only compareTo() method) etc.
    2. LE saves the lot of code i.e. no need to write another class and then provide implementation of method again, Here we can simply provide the implementation.
    3. Java lambda expression is treated as a function, so compiler does not create .class file for them.
    4. LE syntax -
@@ -78,3 +78,6 @@
    9. For more nfo refer below links -
    * GFG - https://www.geeksforgeeks.org/double-colon-operator-in-java/
    * JAVATPOINT - https://www.javatpoint.com/java-8-method-reference
+
+3. **Functional Interface**
+   1. 
