@@ -79,5 +79,56 @@
    * GFG - https://www.geeksforgeeks.org/double-colon-operator-in-java/
    * JAVATPOINT - https://www.javatpoint.com/java-8-method-reference
 
-3. **Functional Interface**
-   1. 
+
+3. **Functional Interface (FI)**
+   1. A FI is an interface which contains only **one abstract** method. They can have only one functionality to exhibit.
+   2. FI is also known as **Single Abstract Method Interfaces (SAM Interfaces)**.
+   3. A FI can have any no. of **default and static** methods.
+   4. In FI we can **declare** any no. of methods of object class.
+   5. **@FunctionalInterface** annotation is used to mark an interface as an FI, but it is optional but it'll be better to use annotation so that if in future anyone will see this annotation then he will not disturb the interface.
+   6. If an interface is marked with @FunctionalInterface annotation and if we will try to write more than one abstract method in that then compiler will throw an error.
+   ```
+   @FunctionalInterface  
+   interface sayable{  
+      void say(String msg);   // abstract method  
+      // It can contain any number of Object class methods.  
+      int hashCode();  
+      String toString();  
+      boolean equals(Object obj);  
+   }
+   ```
+   7. **Lambda expression can be used to represent the instance of a FI.**
+   ```
+   // creating a thread using Thread class w/o Runnable (A FI)
+   Thread t = new Thread(either pass the object of class implementing Runnable interface 
+                           or Lambda expression);
+   t.start();
+   Object = new ClassImplementingRunnable();
+   Lambda expression be like -- () -> {// body of thread}
+   ```
+   8. Mainly there are 4 types of FI present -
+      1. Consumer Interface (CI)
+         * CI is a FI which accepts only one argument and does not return anything likewise we have Bi-Consumer that consumes two argument but does not return anything.
+         * Following abstract method present in the Consumer interface -
+         ```
+         void accept(T t);
+         ```
+         * forEach loop accept Consumer Interface.
+      2. Predicate Interface (PI)
+         * PI is a FI which accepts only one argument and return a boolean value likewise we have bi-predicate which accepts two values and return boolean value.
+         * Following abstract method present in the Consumer interface -
+         ```
+         boolean test(T t);
+         ```
+         * filter function in stream uses / accepts Predicate interface in it's implementation.
+      3. Function Interface
+         * A Function interface is a FI which accepts one argument and returns a value after the required processing likewise we have Bi-Function interface.
+         * Following abstract method present in the Consumer interface -
+         ```
+         R apply(T t);
+         ```
+         * Map function in stream uses / accepts Function interface in it's implementation.
+         * There are two other FI present **Unary Operator and Binary Operator**. They both extend the Function and Bi-Function respectively.
+         * Reduce in stream uses Binary operator.
+      4. Supplier interface
+   
