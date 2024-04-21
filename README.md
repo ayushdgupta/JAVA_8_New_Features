@@ -81,7 +81,7 @@
 
 
 3. **Functional Interface (FI)**
-   1. A FI is an interface which contains only **one abstract** method. They can have only one functionality to exhibit.
+   1. A FI is an interface which contains only **one abstract** method. They can have only one functionality to exhibit and FI is present in JAVA.lang package.
    2. FI is also known as **Single Abstract Method Interfaces (SAM Interfaces)**.
    3. A FI can have any no. of **default and static** methods.
    4. In FI we can **declare** any no. of methods of object class.
@@ -106,7 +106,8 @@
    Object = new ClassImplementingRunnable();
    Lambda expression be like -- () -> {// body of thread}
    ```
-   8. Mainly there are 4 types of FI present -
+   8. **A FI can extends another interface only when it does not have any abstract method i.e. if inter1 is a FI and inter2 is an interface then inter1 entends inter2 is allowed only when inter2 don't have any abstract methods.**
+   9. Mainly there are 4 types of FI present  and all following FIes are present in JAVA.util package -
       1. Consumer Interface (CI)
          * CI is a FI which accepts only one argument and does not return anything likewise we have Bi-Consumer that consumes two argument but does not return anything.
          * Following abstract method present in the Consumer interface -
@@ -130,5 +131,33 @@
          * Map function in stream uses / accepts Function interface in it's implementation.
          * There are two other FI present **Unary Operator and Binary Operator**. They both extend the Function and Bi-Function respectively.
          * Reduce in stream uses Binary operator.
-      4. Supplier interface
+      4. Supplier interface (SI)
+         * A SI is a FI that does not take any input and yet returns a single output.
+         * This kind of interfaces are used for defining the logic for generation of any sequences like fibonacci.
+         * Following abstract method present in the Supplier interface -
+         ```
+         T.get();
+         ```
+         * e.g. 1->
+         ```
+         Supplier<Double> randomValue = () -> Math.random();
+         System.out.println(randomValue.get());
+         ```
+         2-> Generate function in stream use supplier function
+         ```
+         Stream.generate(new Random()::nextInt) 
+         .limit(5).forEach(System.out::println);
+         
+         // o/p
+            697197501
+            50139200
+            321540264
+            1042847655
+            -770409472
+         ```
+      10. for references 
+          * JAVATPOINT -- https://www.javatpoint.com/java-8-functional-interfaces
+          * GeeksForGeeks -- https://www.geeksforgeeks.org/functional-interfaces-java/
+4. Stream API
+   1. 
    
