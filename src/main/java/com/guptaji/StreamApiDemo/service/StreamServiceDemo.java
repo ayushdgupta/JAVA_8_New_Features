@@ -105,12 +105,37 @@ public class StreamServiceDemo {
         "findFirst result " + first.orElse("No element greater than 7 length found"));
 
     // Above our 'lengthGreaterThanOrEqualToSeven' function executed 2 times only so it clearly
-    // reflects that filter did n't executed for the entire list it executed in a shortcircuit
-    // manner
-    // the reason is streams are lazily evaluated - it will stop at the first object that matches
-    // the condition. so here filetr() and findFirst() combo act as a forEach & break combo.
+    // reflects that filter did n't executed for the entire list, it executed in a shortcircuit
+    // manner and the reason is streams are lazily evaluated - it will stop at the first object
+    // that matches the condition. so here filetr() and findFirst() combo act as a forEach & break
+    // combo.
 
     // let's see another example
+    /*
+    for below code the output was
+     checking length
+     checking length
+     appending AA
+     checking length
+     appending AA
+     checking length
+     appending AA
+     checking length
+     checking length
+     appending AA
+     [Dragon Ball ZAA, BeybladeAA, PokemonAA, DigimonAA]
+     so by output we can depict that stream run like
+     for(int i = 0; i < length; i++){
+       if(data[i].length >= 7){
+         appendAA(data[i]);    // and then store the data in the list
+       }
+     }
+     it is running like 'collect' will ask for the data from 'map' and 'map' will ask the data from
+     'filter' and 'filter' will ask the data from source stream.
+     collect <-- map <-- filter <-- Source stream
+     so once filter will get the data then it'll be pass to map then to collect, so this kind of
+     process will run for all N elements in the list.
+    */
     System.out.println("###############");
     System.out.println(
         animeList.stream()
