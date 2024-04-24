@@ -5,7 +5,9 @@ import static com.guptaji.StreamApiDemo.constant.Constants.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +34,11 @@ public class StreamServiceDemo {
 
     // All stream functions require a non-null collection data otherwise NPE will be thrown
     // bcz of Object.NonRequireNull check internally.
+
+    // you cannot pass primitive data types in Stream<> i.e. (Stream<int> NOT_ALLOWED) in Java. The
+    // Stream<> interface is generic, and the type parameter T must be a reference type. Primitive
+    // data types are not reference types, so they cannot be used as the type parameter for
+    // Stream<>.
 
     // 1. boolean allMatch(Predicate<? super T> predicate) (Shortcircuit method)
     // returns true if all the elements of the stream match the predicate.
@@ -142,11 +149,72 @@ public class StreamServiceDemo {
             .filter(this::lengthGreaterThanOrEqualToSeven)
             .map(this::appendAAToString)
             .collect(Collectors.toList()));
+
+    // 6. static <T> Stream<T> generate(Supplier<T> s)
+    // limit is another function in stream which will give only the specified no. of elements
+    // from the stream.
+    Stream<Integer> generateRandomStream = Stream.generate(new Random()::nextInt);
+    generateRandomStream.limit(10).forEach(System.out::println);
+
+    // here our animeList size was 6 and limit was 20 which was greater than our list but code
+    // did n'tblasted it print all 6 anime names so here limit means max size if stream will cross
+    // that max size then it'll not gonna print all of them, it'll print only 20.
+    animeList.stream().limit(20).forEach(System.out::println);
+
+    System.out.println("###############");
+    Stream<String> limitedStream =
+        animeList.stream()
+            .filter(this::lengthGreaterThanOrEqualToThree)
+            .map(this::appendAAToString)
+            .limit(4);
+
+    // after writing above rules we will not get any output after line no. 164 so is it because
+    // we have not written any SOP() statement and the stream will calculate internally? The answer
+    // is NO, bcz Stream always calculate lazily so until or unless there will be no terminal
+    // operation e.g. (collect(Collectors.toList())) will present at the end of stream, it'll not
+    // calculate the stream. So here in our case as well we have defined the stream i.e. we have
+    // given certain rules with Stream that whenever it'll be evaluated then it needs to do filter
+    // then map and then check the limit and then the corresponding terminal operation.
+
+    limitedStream.forEach(System.out::println);
+
+    // So after writing above statement our stream is like
+    // filter --> map --> limit --> forEach so our output be like
+    // so once filter will get the data, it'll pass it to map, map will pass it to the limit, limit
+    // will pass it to the forEach().
+    /*
+      checking length 3
+      appending AA
+      NarutoAA
+      checking length 3
+      appending AA
+      Dragon Ball ZAA
+      checking length 3
+      appending AA
+      BeybladeAA
+      checking length 3
+      appending AA
+      PokemonAA
+    */
+
+    // 7. static <T> Stream<T> iterate(T seed, UnaryOperator<T> f)
+    // In iterate function it accepts two arguments one is 'Seed' which is the base element and the
+    // second argument will be the Unary operator, so Unary operator will act upon the seed or base
+    // element to determine the next result, But with iterate function we should use limit function
+    // because it returns an infinite sequential ordered stream i.e. first base element ka result
+    // will act as a input for next iteration and so on --
+    // iterate(T seed, UnaryOperator<T> f) --> f(seed) --> f(f(seed)) --> f(f(f(seed))) --> ....
+    Stream.iterate(1, temp -> temp + 1).limit(10).forEach(System.out::println);
   }
 
   private boolean lengthGreaterThanOrEqualToSeven(String s) {
     System.out.println("checking length");
     return s.length() >= 7;
+  }
+
+  private boolean lengthGreaterThanOrEqualToThree(String s) {
+    System.out.println("checking length 3");
+    return s.length() >= 3;
   }
 
   private String appendAAToString(String s) {
