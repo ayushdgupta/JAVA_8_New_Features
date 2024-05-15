@@ -36,9 +36,18 @@ public class FibonacciSeries {
     System.out.println(collect);
 
     // let's give a try using FI so first we need to create one class which will implement
-    // supplier interface.
-    // only problem here is it's not giving starting 0 that we can add or tweak logic to
-    // give the correct result.
-    Stream.generate(new FiboHelper()).limit(20).forEach(System.out::println);
+    // supplier interface. only problem here is it's not giving starting 0 that we can add or tweak
+    // logic to give the correct result.
+    List<Long> fibonacciSeriesList =
+        Stream.generate(new FiboHelper()).limit(20).collect(Collectors.toList());
+    System.out.println(fibonacciSeriesList);
+
+    // fibonacci is also possible using iterate function in stream
+    List<Integer> fiboList =
+        Stream.iterate(new int[] {0, 1}, t -> new int[] {t[1], t[0] + t[1]})
+            .limit(limit)
+            .map(temp -> temp[0])
+            .toList();
+    System.out.println(fiboList);
   }
 }

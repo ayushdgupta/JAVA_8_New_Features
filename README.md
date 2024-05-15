@@ -130,7 +130,7 @@
          ```
          * Map function in stream uses / accepts Function interface in it's implementation.
          * There are two other FI present **Unary Operator and Binary Operator**. They both extend the Function and Bi-Function respectively.
-         * Reduce in stream uses Binary operator.
+         * Reduce in stream uses Binary operator and iterate function 'iterate(T seed, UnaryOperator<T> f)' uses Unary Operator.
       4. Supplier interface (SI)
          * A SI is a FI that does not take any input and yet returns a single output.
          * This kind of interfaces are used for defining the logic for generation of any sequences like fibonacci.

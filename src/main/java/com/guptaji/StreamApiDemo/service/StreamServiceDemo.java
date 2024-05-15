@@ -157,8 +157,9 @@ public class StreamServiceDemo {
     generateRandomStream.limit(10).forEach(System.out::println);
 
     // here our animeList size was 6 and limit was 20 which was greater than our list but code
-    // did n'tblasted it print all 6 anime names so here limit means max size if stream will cross
-    // that max size then it'll not gonna print all of them, it'll print only 20.
+    // did n't blasted, it prints all 6 anime names so here limit means max size if stream will
+    // cross
+    // that max size then it'll not print all of them, it'll print only 20.
     animeList.stream().limit(20).forEach(System.out::println);
 
     System.out.println("###############");
@@ -202,9 +203,10 @@ public class StreamServiceDemo {
     // second argument will be the Unary operator, so Unary operator will act upon the seed or base
     // element to determine the next result, But with iterate function we should use limit function
     // because it returns an infinite sequential ordered stream i.e. first base element ka result
-    // will act as a input for next iteration and so on --
-    // iterate(T seed, UnaryOperator<T> f) --> f(seed) --> f(f(seed)) --> f(f(f(seed))) --> ....
-    Stream.iterate(1, temp -> temp + 1).limit(10).forEach(System.out::println);
+    // will act as an input for next iteration and so on --
+    // iterate(T seed, UnaryOperator<T> f) --> seed -- > f(seed) --> f(f(seed)) --> f(f(f(seed))) --> ....
+    System.out.println("iterate function output");
+    Stream.iterate(2, temp -> temp + 3).limit(10).forEach(System.out::println);
   }
 
   private boolean lengthGreaterThanOrEqualToSeven(String s) {
