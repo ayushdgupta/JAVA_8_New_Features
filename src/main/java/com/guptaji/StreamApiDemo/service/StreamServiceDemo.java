@@ -2,10 +2,8 @@ package com.guptaji.StreamApiDemo.service;
 
 import static com.guptaji.StreamApiDemo.constant.Constants.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -204,9 +202,45 @@ public class StreamServiceDemo {
     // element to determine the next result, But with iterate function we should use limit function
     // because it returns an infinite sequential ordered stream i.e. first base element ka result
     // will act as an input for next iteration and so on --
-    // iterate(T seed, UnaryOperator<T> f) --> seed -- > f(seed) --> f(f(seed)) --> f(f(f(seed))) --> ....
+    // iterate(T seed, UnaryOperator<T> f) --> seed -- > f(seed) --> f(f(seed)) --> f(f(f(seed)))
+    // --> ....
     System.out.println("iterate function output");
     Stream.iterate(2, temp -> temp + 3).limit(10).forEach(System.out::println);
+
+    // 8. Optional<T> max(Comparator<? super T> comparator)
+    // It returns the maximum element of this stream according to the provided Comparator. This is a
+    // special case of a reduction.
+    List<String> datesList = new ArrayList<>();
+    datesList.add("1991-03-17");
+    datesList.add("1997-03-17");
+    datesList.add("1993-03-17");
+    datesList.add("1992-03-17");
+    datesList.add("2024-03-17");
+    datesList.add("2012-03-17");
+
+    Optional<String> max1 = datesList.stream().max(Comparator.comparing(String::valueOf));
+    Optional<String> max2 = datesList.stream().max(Comparator.naturalOrder());
+    Optional<String> max3 = datesList.stream().max(Comparator.comparing(LocalDate::parse));
+    System.out.println(
+        "max1 "
+            + max1.orElse("Not found")
+            + " date and max2 "
+            + max2.orElse("Not found")
+            + " date and max3 "
+            + max3.orElse("Not found")
+            + " date"); // all will give the same result 2024-03-17
+
+    Optional<String> min1 = datesList.stream().min(Comparator.comparing(String::valueOf));
+    Optional<String> min2 = datesList.stream().min(Comparator.naturalOrder());
+    Optional<String> min3 = datesList.stream().min(Comparator.comparing(LocalDate::parse));
+    System.out.println(
+        "min1 "
+            + min1.orElse("Not found")
+            + " date and min2 "
+            + min2.orElse("Not found")
+            + " date and min3 "
+            + min3.orElse("Not found")
+            + " date"); // all will give the same result 1991-03-17
   }
 
   private boolean lengthGreaterThanOrEqualToSeven(String s) {
