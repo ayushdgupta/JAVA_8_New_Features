@@ -270,8 +270,27 @@ public class StreamServiceDemo {
         "Empty stream output "
             + new ArrayList<Integer>().stream().reduce(100, Integer::sum)); // output 100
 
+    // average of above list
+    Double avg =
+        ((double) (integerList.stream().reduce(0, Integer::sum)) / (integerList.stream().count()));
+    System.out.println("Average " + avg);
+
     // c. <U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U>
     // combiner) -- this is needed for parallel streams so skipping it for now.
+
+    // 10. Stream<T> skip(long n) -- this function is used to skip starting n elements of
+    // the stream but if the size of the stream is less than n then an empty stream will
+    // come in output.
+    List<Integer> skipStream = integerList.stream().filter(n -> n % 2 == 0).skip(2).toList();
+    System.out.println("skip stream " + skipStream); // [6, 8, 10]
+
+    List<String> defaultSorted = datesList.stream().sorted().toList();
+    System.out.println("Default sorted " + defaultSorted);
+    List<String> parsedSorted =
+        datesList.stream().sorted(Comparator.comparing(LocalDate::parse)).toList();
+    System.out.println("Parsed sorted " + parsedSorted);
+    // both gave the same result
+    // [1991-03-17, 1992-03-17, 1993-03-17, 1997-03-17, 2012-03-17, 2024-03-17]
   }
 
   private boolean lengthGreaterThanOrEqualToSeven(String s) {
