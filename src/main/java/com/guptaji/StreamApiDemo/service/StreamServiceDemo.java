@@ -241,6 +241,37 @@ public class StreamServiceDemo {
             + " date and min3 "
             + min3.orElse("Not found")
             + " date"); // all will give the same result 1991-03-17
+
+    // 9. Reduce function in stream - Reduce has three overloaded methods, we can also say that
+    // reduce is used or aggregating the data.
+    // a. Optional<T> reduce(BinaryOperator<T> accumulator) -- this function performs the reduction
+    // like we have a list of data, and we need to perform certain operation on the elements of the
+    // list where the result will be  some kind of accumulation (i.e. unique result in which all the
+    // elements of the list contributed like sum, multiplication etc.)
+    List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    Integer sum =
+        integerList.stream().reduce((element1, element2) -> element1 + element2).orElse(0);
+    System.out.println("sum " + sum); // 55 output
+
+    // replacement of lambda (Method Reference)
+    Integer sumFirst = integerList.stream().reduce(Integer::sum).orElse(0);
+    System.out.println("first sum " + sumFirst); // 55 output
+
+    // b. T reduce(T identity, BinaryOperator<T> accumulator) -- this function performs the
+    // reduction using an identity and a binary operator where binary operator will accept the two
+    // inputs where one input is the result of previous operation and the second will be the element
+    // from the stream. For the very first operation the result will be our identity so whenever an
+    // empty string will be provided to reduce, the output will be our identity.
+    Integer sumSecond = integerList.stream().reduce(100, Integer::sum);
+    System.out.println("sum second " + sumSecond); // 155 output
+
+    // for empty stream
+    System.out.println(
+        "Empty stream output "
+            + new ArrayList<Integer>().stream().reduce(100, Integer::sum)); // output 100
+
+    // c. <U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U>
+    // combiner) -- this is needed for parallel streams so skipping it for now.
   }
 
   private boolean lengthGreaterThanOrEqualToSeven(String s) {
